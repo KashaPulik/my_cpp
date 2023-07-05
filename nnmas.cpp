@@ -17,15 +17,19 @@ int** create_matrix(int size, int maxVal)
 int* a_init(int** matrix, int* arr, int size)
 {
     int n = size - 1;
-    int g = 0;
-    while(n >= 0) {
-        for(int i = 0; i < size - n; i++) {
-            for(int j = n; j < size; j++) {
-                arr[g] = matrix[i][j];
-                ++g;
-            }
-        }
-        --n;
+    int i, j, g = 0;
+    while (n >= 0) {
+        i = 0;
+        j = n--;
+        while (j < size)
+            arr[g++] = matrix[i++][j++];
+    }
+    n = 1;
+    while (n < size) {
+        j = 0;
+        i = n++;
+        while(i < size)
+            arr[g++] = matrix[i++][j++];
     }
     return arr;
 }
@@ -49,10 +53,10 @@ void print_arr(int* arr, int size)
 
 int main()
 {
-    int size = 5;
+    int size = 3;
     int** matrix = create_matrix(size, 10);
     print_matrix(matrix, size);
     int* arr = new int[size * size];
     a_init(matrix, arr, size);
-    print_arr(arr, 20);
+    print_arr(arr, size * size);
 }
